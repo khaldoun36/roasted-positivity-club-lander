@@ -2,8 +2,17 @@
 import Logo from "./Logo.svg";
 ---
 
-<header class="flex h-16 border">
-  <div class="flex items-center border-r pr-10 pl-[calc(var(--gutter)-var(--default-border-width))]">
+<!-- Marker at the header's resting position (takes no layout space); once it
+     scrolls out of view, the header is pinned. -->
+<div data-header-sentinel aria-hidden="true" class="-mb-px h-px"></div>
+
+<header
+  data-primary-header
+  class="sticky top-0 z-50 flex h-16 border transition-[background-color,box-shadow] duration-200 data-stuck:bg-soft-white data-stuck:shadow-sm"
+>
+  <div
+    class="flex items-center border-r pr-10 pl-[calc(var(--gutter)-var(--default-border-width))]"
+  >
     <Logo class="h-6 w-auto" role="img" aria-label="Roasted Positivity" />
   </div>
 
@@ -20,7 +29,9 @@ import Logo from "./Logo.svg";
   </nav>
 
   <div class="ml-auto flex">
-    <button class="inline-flex items-center gap-2 border-l px-10 text-md font-medium">
+    <button
+      class="inline-flex items-center gap-2 border-l px-10 text-md font-medium"
+    >
       <span>Cart</span>
       <span class="h-4 w-[0.75px] bg-chocolate"></span>
       <span class="font-mono">0</span>
@@ -30,3 +41,18 @@ import Logo from "./Logo.svg";
     </a>
   </div>
 </header>
+
+<script>
+  // Toggle data-stuck while the header is pinned, for the background/shadow.
+  const header = document.querySelector<HTMLElement>("[data-primary-header]");
+  const sentinel = document.querySelector("[data-header-sentinel]");
+
+  if (header && sentinel) {
+    new IntersectionObserver(([entry]) => {
+      header.toggleAttribute(
+        "data-stuck",
+        !entry.isIntersecting && entry.boundingClientRect.top < 0,
+      );
+    }).observe(sentinel);
+  }
+</script>

@@ -7,6 +7,15 @@
   --font-mono: var(--font-dm-mono);
 }
 
+/*
+ * Page gutter: the responsive edge spacing that keeps page content aligned
+ * (16px mobile, 24px tablet, 32px laptop). Use it as p-gutter, pl-gutter,
+ * gap-gutter, etc. The value itself is set on :root in the base layer below.
+ */
+@theme inline {
+  --spacing-gutter: var(--gutter);
+}
+
 /* Untitled UI type scale (replaces Tailwind's default font sizes) */
 @theme {
   --text-*: initial;
@@ -92,9 +101,36 @@
 }
 
 /* Body text uses font-sans (Tailwind's default); headlines use the serif. */
+/* Borders */
+@theme {
+  --default-border-width: 0.75px;
+}
+
 @layer base {
+  :root {
+    --gutter: --spacing(4);
+
+    @variant md {
+      --gutter: --spacing(6);
+    }
+
+    @variant lg {
+      --gutter: --spacing(8);
+    }
+  }
+
+  /* Default border color (Tailwind otherwise uses currentColor). */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-chocolate);
+  }
+
   body {
     background: var(--color-soft-white);
+    color: var(--color-chocolate);
     isolation: isolate;
   }
 
@@ -121,5 +157,25 @@
   h5,
   h6 {
     font-family: --theme(--font-serif);
+    color: var(--color-wine);
+  }
+
+  /* Trim text boxes to cap height / baseline for optical alignment. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  li,
+  dt,
+  dd,
+  label,
+  button,
+  blockquote,
+  figcaption {
+    text-box: trim-both cap alphabetic;
   }
 }

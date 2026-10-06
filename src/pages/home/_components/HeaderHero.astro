@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import Wrapper from "../../../components/Wrapper.astro";
+import headerHero from "../../../assets/header-hero.jpg";
+import coffeeBag from "../../../assets/coffee-bag.png";
+---
+
+<Wrapper class="h-[85svh] bg-ferment p-4">
+  <section class="relative isolate h-full overflow-clip rounded-xl">
+    <Image
+      src={headerHero}
+      alt=""
+      layout="full-width"
+      class="absolute inset-0 -z-10 size-full object-cover select-none"
+      draggable="false"
+      priority
+    />
+
+    <h1 class="absolute top-1/2 left-6 max-w-[calc(50%-11rem)] -translate-y-1/2 text-display-md font-medium text-balance text-soft-white">
+      Rich, smooth, and naturally sweet. Easy to love, black or with milk.
+    </h1>
+
+    <Image
+      src={coffeeBag}
+      alt="Roasted Positivity coffee bag: Our special blend, dark blend, medium roast"
+      widths={[240, 400, 600, 843]}
+      sizes="18vw"
+      class="absolute top-1/2 left-1/2 h-[46%] w-auto -translate-1/2 rotate-2 object-contain select-none"
+      draggable="false"
+    />
+  </section>
+</Wrapper>

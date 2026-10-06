@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Button from "../../../components/Button.astro";
+import Wrapper from "../../../components/Wrapper.astro";
+import novCoffeeBag from "../../../assets/nov_coffee_bag.png";
+import novIllustration from "../../../assets/nov_illustration.jpeg";
+import CoffeeCard, { type Coffee } from "./CoffeeCard.astro";
+
+interface Props {
+  /** The drop's month, e.g. "November". Not derived from today's date. */
+  month: string;
+}
+
+const { month } = Astro.props;
+
+const novCoffee: Coffee = {
+  name: "Special Blend",
+  image: novCoffeeBag,
+  alt: "November Roasted Positivity coffee bag: Our special blend, dark blend, medium roast",
+  price: "From Dhs. 75.00",
+  origins: ["Colombia", "Ethiopia"],
+  notes: ["Caramel", "Citrus", "Milk Chocolate"],
+  roast: { label: "Medium Roast", level: 50 },
+};
+
+// TODO: replace with the artist's Instagram profile URL.
+const artistInstagramUrl = "[PASTE URL HERE]";
+---
+
+<section class="grid grid-cols-1 lg:grid-cols-8">
+  <!-- This month's illustration -->
+  <Wrapper
+    class="transition-colors duration-300 hover:bg-floral/80 lg:col-span-4"
+  >
+    <div class="relative">
+      <Image
+        src={novIllustration}
+        alt="November illustration: a coffee cup overflowing with flowers, smiling toast, coffee beans, a bicycle, and bees"
+        widths={[640, 960, 1280, 1600, 2048]}
+        sizes="(min-width: 1024px) 66vw, 100vw"
+        class="h-auto w-full rounded-xl select-none"
+        draggable="false"
+      />
+      <p
+        class="absolute top-gutter left-gutter max-w-[calc(100%-2*var(--gutter))] bg-soft-white px-2 py-1.5 font-serif text-xl font-semibold text-wine"
+      >
+        {month}’s Illustration
+      </p>
+      <Button
+        href={artistInstagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Meet the artist on Instagram (opens in a new tab)"
+        class="absolute right-gutter bottom-gutter"
+      >
+        <Icon name="fa6-brands:instagram" class="size-4" aria-hidden="true" />
+        Meet the artist
+      </Button>
+    </div>
+  </Wrapper>
+
+  <!-- This month's coffee bag -->
+  <Wrapper
+    class="border-t transition-colors duration-300 hover:bg-stream/80 lg:col-span-2 lg:border-t-0 lg:border-l"
+  >
+    <CoffeeCard coffee={novCoffee} />
+  </Wrapper>
+  <Wrapper
+    class="border-t transition-colors duration-300 hover:bg-citrus/80 lg:col-span-2 lg:border-t-0 lg:border-l"
+  >
+    <CoffeeCard coffee={novCoffee} />
+  </Wrapper>
+</section>

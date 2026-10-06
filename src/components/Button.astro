@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../lib/cn";
+
+// Renders a link when given an href, otherwise a button.
+type Props = HTMLAttributes<"a"> & HTMLAttributes<"button">;
+
+const { href, class: className, type = "button", ...attrs } = Astro.props;
+
+const classes = cn(
+  "inline-flex items-center gap-2 bg-stream px-2 py-1.5 font-mono text-sm tracking-wider text-forest uppercase",
+  className,
+);
+---
+
+{
+  href ? (
+    <a href={href} class={classes} {...attrs}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} {...attrs}>
+      <slot />
+    </button>
+  )
+}

@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* Font families, loaded via the Astro Fonts API (astro.config.mjs) */
+@theme inline {
+  --font-sans: var(--font-hanken-grotesk);
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-dm-mono);
+}
+
+/* Untitled UI type scale (replaces Tailwind's default font sizes) */
+@theme {
+  --text-*: initial;
+
+  /* Text */
+  --text-xs: 0.75rem; /* 12px */
+  --text-xs--line-height: 1.125rem; /* 18px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-sm--line-height: 1.25rem; /* 20px */
+  --text-md: 1rem; /* 16px */
+  --text-md--line-height: 1.5rem; /* 24px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-lg--line-height: 1.75rem; /* 28px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-xl--line-height: 1.875rem; /* 30px */
+
+  /* Display */
+  --text-display-xs: 1.5rem; /* 24px */
+  --text-display-xs--line-height: 2rem; /* 32px */
+  --text-display-sm: 1.875rem; /* 30px */
+  --text-display-sm--line-height: 2.375rem; /* 38px */
+  --text-display-md: 2.25rem; /* 36px */
+  --text-display-md--line-height: 2.75rem; /* 44px */
+  --text-display-md--letter-spacing: -0.02em;
+  --text-display-lg: 3rem; /* 48px */
+  --text-display-lg--line-height: 3.75rem; /* 60px */
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-xl: 3.75rem; /* 60px */
+  --text-display-xl--line-height: 4.5rem; /* 72px */
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-2xl: 4.5rem; /* 72px */
+  --text-display-2xl--line-height: 5.625rem; /* 90px */
+  --text-display-2xl--letter-spacing: -0.02em;
+}
+
+/* Brand colors (replaces Tailwind's default color palette) */
+@theme {
+  --color-*: initial;
+
+  /* Primary palette */
+  --color-forest: oklch(25.51% 0.0202 162.86); /* #1a2620 */
+  --color-valley: oklch(60.01% 0.1075 111.15); /* #838631 */
+  --color-stream: oklch(83.98% 0.0585 246.16); /* #accfef */
+  --color-terracotta: oklch(54.09% 0.1407 44.47); /* #af4e1b */
+  --color-soft-white: oklch(98.57% 0.0167 88); /* #fffaee */
+
+  /* Secondary palette */
+  --color-citrus: oklch(85.99% 0.1545 85.1); /* #ffc844 */
+  --color-strawberry: oklch(68.52% 0.2057 33.7); /* #ff5b38 */
+  --color-chocolate: oklch(42.29% 0.0885 48.13); /* #743d1e */
+  --color-floral: oklch(67.14% 0.0834 5.69); /* #c2808e */
+  --color-blueberry: oklch(48.02% 0.1508 260.53); /* #2659b1 */
+  --color-ferment: oklch(75.78% 0.145 95.93); /* #ccaf29 */
+  --color-wine: oklch(37.02% 0.0949 21.16); /* #692729 */
+  --color-vanilla: oklch(77.73% 0.1353 53.75); /* #f99d5e */
+  --color-herb: oklch(44.73% 0.0988 142.63); /* #30622d */
+  --color-bay: oklch(32.92% 0.0468 182.18); /* #143d37 */
+}
+
+/* Untitled UI shadows (replaces Tailwind's default box shadows) */
+/* Shadow color: --color-forest, at the Untitled UI opacities */
+@theme {
+  --shadow-*: initial;
+
+  --shadow-xs: 0px 1px 2px
+    color-mix(in oklab, var(--color-forest) 5%, transparent);
+  --shadow-sm:
+    0px 1px 3px color-mix(in oklab, var(--color-forest) 10%, transparent),
+    0px 1px 2px color-mix(in oklab, var(--color-forest) 6%, transparent);
+  --shadow-md:
+    0px 4px 8px -2px color-mix(in oklab, var(--color-forest) 10%, transparent),
+    0px 2px 4px -2px color-mix(in oklab, var(--color-forest) 6%, transparent);
+  --shadow-lg:
+    0px 12px 16px -4px color-mix(in oklab, var(--color-forest) 8%, transparent),
+    0px 4px 6px -2px color-mix(in oklab, var(--color-forest) 3%, transparent);
+  --shadow-xl:
+    0px 20px 24px -4px color-mix(in oklab, var(--color-forest) 8%, transparent),
+    0px 8px 8px -4px color-mix(in oklab, var(--color-forest) 3%, transparent);
+  --shadow-2xl: 0px 24px 48px -12px
+    color-mix(in oklab, var(--color-forest) 18%, transparent);
+  --shadow-3xl: 0px 32px 64px -12px
+    color-mix(in oklab, var(--color-forest) 14%, transparent);
+}
+
+/* Body text uses font-sans (Tailwind's default); headlines use the serif. */
+@layer base {
+  body {
+    background: var(--color-soft-white);
+    isolation: isolate;
+  }
+
+  /*
+   * Paper texture: a fixed layer of forest-tinted grain behind all content.
+   * The SVG is fractal noise turned into an alpha mask, so the grain color
+   * comes from the background-color below. Tune strength via the alpha %.
+   */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: --theme(--color-forest / 8%);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 -1.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mask-size: 240px 240px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: --theme(--font-serif);
+  }
+}

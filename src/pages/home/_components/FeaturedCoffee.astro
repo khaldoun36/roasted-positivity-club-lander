@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 import Button from "../../../components/Button.astro";
 import Wrapper from "../../../components/Wrapper.astro";
 import novCoffeeBag from "../../../assets/nov_coffee_bag.png";
-import novIllustration from "../../../assets/nov_illustration.jpeg";
+import novIllustration from "../../../assets/nov_illustration_alt.jpeg";
 import CoffeeCard, { type Coffee } from "./CoffeeCard.astro";
 
 interface Props {
@@ -26,20 +26,25 @@ const novCoffee: Coffee = {
 
 // TODO: replace with the artist's Instagram profile URL.
 const artistInstagramUrl = "[PASTE URL HERE]";
+
+// On large screens, size the bag images to the illustration's height: half
+// the section's width, minus the wrapper gutters, at 4:3.
+const matchIllustrationHeight =
+  "lg:aspect-auto lg:h-[calc((50cqw-2*var(--gutter))*3/4)]";
 ---
 
-<section class="grid grid-cols-1 lg:grid-cols-8">
+<section class="@container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8">
   <!-- This month's illustration -->
   <Wrapper
-    class="transition-colors duration-300 hover:bg-floral/80 lg:col-span-4"
+    class="transition-colors duration-300 hover:bg-floral/80 md:col-span-2 lg:col-span-4"
   >
     <div class="relative">
       <Image
         src={novIllustration}
-        alt="November illustration: a coffee cup overflowing with flowers, smiling toast, coffee beans, a bicycle, and bees"
-        widths={[640, 960, 1280, 1600, 2048]}
-        sizes="(min-width: 1024px) 66vw, 100vw"
-        class="h-auto w-full rounded-xl select-none"
+        alt="November illustration: a coffee cup overflowing with flowers, smiling toast, and coffee beans, surrounded by a bicycle, a songbird, bees, a stack of books, and a dripping honey pot"
+        widths={[640, 960, 1280, 1600, 2048, 2400]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="aspect-4/3 w-full rounded-xl object-cover select-none"
         draggable="false"
       />
       <p
@@ -64,11 +69,11 @@ const artistInstagramUrl = "[PASTE URL HERE]";
   <Wrapper
     class="border-t transition-colors duration-300 hover:bg-stream/80 lg:col-span-2 lg:border-t-0 lg:border-l"
   >
-    <CoffeeCard coffee={novCoffee} />
+    <CoffeeCard coffee={novCoffee} imageClass={matchIllustrationHeight} />
   </Wrapper>
   <Wrapper
-    class="border-t transition-colors duration-300 hover:bg-citrus/80 lg:col-span-2 lg:border-t-0 lg:border-l"
+    class="border-t transition-colors duration-300 hover:bg-citrus/80 md:border-l lg:col-span-2 lg:border-t-0"
   >
-    <CoffeeCard coffee={novCoffee} />
+    <CoffeeCard coffee={novCoffee} imageClass={matchIllustrationHeight} />
   </Wrapper>
 </section>
